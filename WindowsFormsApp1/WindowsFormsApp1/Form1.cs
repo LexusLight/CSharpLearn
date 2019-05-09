@@ -68,6 +68,7 @@ namespace WindowsFormsApp1
                     trisemus(flagShif);
                         break;
                     case 5:
+                    playfair(flagShif);
                         break;
                     case 6:
                         break;
@@ -238,6 +239,19 @@ namespace WindowsFormsApp1
             textBox3.Text = secondWord;
             secondWord = "";
             newalphabet = ""; //обнуляем
+        }
+
+
+        private void playfair(bool flag)
+        {
+            if (flag)
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }
