@@ -244,14 +244,64 @@ namespace WindowsFormsApp1
 
         private void playfair(bool flag)
         {
+            int k=0;
+            int Xone, Yone, Xtwo, Ytwo;
+            string newkey = Convert.ToString(key[0]);
+            for (int i = 0; i < key.Length; i++) // Убираем лишние символы
+            {
+                if (newkey.Contains(key[i])) continue;
+                newkey += key[i];
+            }
+            newalphabet = newkey;
+            for (int i = 0; i < alphabet.Length; i++) // генерируем новый алфавит(чтобы вставить его в матрицу)
+            {
+                if (newalphabet.Contains(alphabet[i])) continue;
+                newalphabet += alphabet[i];
+            }
+            newalphabet += "./!";
+            for (int i = 0; i < 6; i++)//двумерному массиву присваиваем новый алфавит
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    polimass[i, j] = newalphabet[k++];
+                }
+            }
+            k = 0;
+            firstWord += (firstWord.Length % 2 == 0) ? "" : "Я";
             if (flag)
             {
-
+                for (int i=0; i < firstWord.Length-1; i = i+2)
+                {
+                    for (int j=0; j < 5; j++)
+                    {
+                        for (int n = 0; n < 5; n++)
+                        {
+                            if (firstWord[i] == polimass[j,n])
+                            {
+                                Xone = j;
+                                Yone = n;
+                            }else if (firstWord[i+1] == polimass[j, n])
+                            {
+                                Xtwo = j;
+                                Ytwo = n;
+                            }
+                        }
+                    }
+                    try
+                    {
+                        if (Xone == Xtwo) secondWord += polibian[Xone + 1, n];
+                        if (Yone == Ytwo) secondWord += polibian[j, Yone + 1];
+                    }
+                    catch { }
+                }
             }
             else
             {
 
             }
+            textBox3.Text = secondWord;
+            secondWord = "";
+            newalphabet = ""; //обнуляем
         }
     }
 }
