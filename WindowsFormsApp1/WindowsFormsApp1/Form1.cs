@@ -14,7 +14,7 @@ namespace WindowsFormsApp1
     {   
         private string alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"; //33 - 36   КЛАССИЧЕСКИЙ АЛФАВИТ
         private string newalphabet; // ДЛЯ ОПЕРАЦИЙ С АЛФАВИТОМ
-        private char[,] polimass = new char[6,6];
+        private char[,] mass = new char[6,6];
         private string firstWord; //ВХОДНОЕ СЛОВО
         private string secondWord; //ВЫХОДНОЕ СЛОВО
         private char CH; //Символ Алфавита
@@ -44,7 +44,7 @@ namespace WindowsFormsApp1
             if (radioButton3.Checked) { textBox1.Visible = false; scifernum = 3; }
             if (radioButton4.Checked) { textBox1.Visible = true; scifernum = 4; }
             if (radioButton5.Checked) { textBox1.Visible = true; scifernum = 5; }
-            if (radioButton6.Checked) { textBox1.Visible = false; scifernum = 6; }
+            if (radioButton6.Checked) { textBox1.Visible = true; scifernum = 6; }
             if (radioButton7.Checked) { textBox1.Visible = true; scifernum = 7; }
             if (radioButton8.Checked) { textBox1.Visible = true; scifernum = 8; }
         }
@@ -71,8 +71,10 @@ namespace WindowsFormsApp1
                     playfair(flagShif);
                         break;
                     case 6:
+                    variantniy(flagShif);
                         break;
                     case 7:
+                    vijiner(flagShif);
                         break;
                     case 8:
                         break;
@@ -149,7 +151,7 @@ namespace WindowsFormsApp1
             {
                 for (int j = 0; j < 6; j++)
                 {
-                    polimass[i, j] = newalphabet[k++];  
+                    mass[i, j] = newalphabet[k++];  
                 }
             }
             k = 0;
@@ -161,7 +163,7 @@ namespace WindowsFormsApp1
                     {
                         for (int n = 0; n < 6; n++)
                         {
-                            secondWord += (polimass[j, n] == firstWord[i]) ? Convert.ToString((j+1) * 10 + n+1) : "";
+                            secondWord += (mass[j, n] == firstWord[i]) ? Convert.ToString((j+1) * 10 + n+1) : "";
                         }
                     }
                 }
@@ -170,7 +172,7 @@ namespace WindowsFormsApp1
             else
             {
                 for (int i = 0; i < firstWord.Length - 1; i = i + 2) {
-                    secondWord += polimass[Convert.ToInt32(Convert.ToString(firstWord[i]))-1, Convert.ToInt32(Convert.ToString(firstWord[i + 1]))-1];                   
+                    secondWord += mass[Convert.ToInt32(Convert.ToString(firstWord[i]))-1, Convert.ToInt32(Convert.ToString(firstWord[i + 1]))-1];                   
                 }
                 textBox3.Text = secondWord;
             }
@@ -199,7 +201,7 @@ namespace WindowsFormsApp1
             {
                 for (int j = 0; j < 6; j++)
                 {
-                    polimass[i, j] = newalphabet[k++];  
+                    mass[i, j] = newalphabet[k++];  
                 }
             }
             k = 0;
@@ -212,9 +214,9 @@ namespace WindowsFormsApp1
                     {
                         for (int n = 0; n < 6; n++)
                         {
-                            if (polimass[j, n] == firstWord[i])
+                            if (mass[j, n] == firstWord[i])
                             {
-                                secondWord += (j != 5) ? polimass[j + 1, n] : polimass[0, n];
+                                secondWord += (j != 5) ? mass[j + 1, n] : mass[0, n];
                             }
                         }
                     }
@@ -228,9 +230,9 @@ namespace WindowsFormsApp1
                     {
                         for (int n = 0; n < 6; n++)
                         {
-                            if (polimass[j, n] == firstWord[i])
+                            if (mass[j, n] == firstWord[i])
                             {
-                                secondWord += (j != 0) ? polimass[j - 1, n] : polimass[5, n];
+                                secondWord += (j != 0) ? mass[j - 1, n] : mass[5, n];
                             }
                         }
                     }
@@ -263,7 +265,7 @@ namespace WindowsFormsApp1
             {
                 for (int j = 0; j < 6; j++)
                 {
-                    polimass[i, j] = newalphabet[k++];
+                    mass[i, j] = newalphabet[k++];
                 }
             }
             k = 0;
@@ -276,23 +278,8 @@ namespace WindowsFormsApp1
                     {
                         for (int n = 0; n < 5; n++)
                         {
-                            if (firstWord[i] == polimass[j,n])
-                            {
-                                Xone = j;
-                                Yone = n;
-                            }else if (firstWord[i+1] == polimass[j, n])
-                            {
-                                Xtwo = j;
-                                Ytwo = n;
-                            }
                         }
                     }
-                    try
-                    {
-                        if (Xone == Xtwo) secondWord += polibian[Xone + 1, n];
-                        if (Yone == Ytwo) secondWord += polibian[j, Yone + 1];
-                    }
-                    catch { }
                 }
             }
             else
@@ -302,6 +289,101 @@ namespace WindowsFormsApp1
             textBox3.Text = secondWord;
             secondWord = "";
             newalphabet = ""; //обнуляем
+        }// НЕ сделано
+
+
+        private void variantniy(bool flag)//ВАРИАНТНЫЙ ШИФР
+
+
+        {
+            string[,] varmas = new string[7, 7];
+            string varalphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦ";
+            int count = 0;
+            int k = 0;
+            string newkey = Convert.ToString(key[0]);
+            for (int i = 0; i < key.Length; i++) // Убираем лишние символы
+            {
+                if (newkey.Contains(key[i])) continue;
+                newkey += key[i];
+            }
+            newalphabet = newkey;
+            for (int i = 0; i < alphabet.Length; i++) // генерируем новый алфавит(чтобы вставить его в матрицу)
+            {
+                if (newalphabet.Contains(alphabet[i])) continue;
+                newalphabet += alphabet[i];
+            }
+            newalphabet += "./!";
+            for (int i = 1; i < 7; i++)//двумерному массиву присваиваем новый алфавит
+            {
+                for (int j = 1; j < 7; j++)
+                {
+                    varmas[i, j] = newalphabet[k++].ToString();
+                }
+            }
+            k = 0;
+            for (int i = 0; i < 11; i += 2) 
+            {
+                varmas[++count, 0] = varalphabet[i].ToString() + varalphabet[i + 1].ToString();
+            }
+            count = 0;
+            for (int i = 12; i < 23; i += 2)
+            {
+                varmas[0, ++count] = varalphabet[i].ToString() + varalphabet[i + 1].ToString();
+            }
+            Random rnd = new Random();
+            int value1 = 0;
+            int value2 = 0;
+            if (flag)
+            {
+                for (int i = 0; i < firstWord.Length; i++)
+                {
+                    for(int j = 1; j < 7; j++)
+                    {
+                        for(int n=1; n < 7; n++)
+                        {
+                            if (varmas[j, n] == firstWord[i].ToString())
+                            {
+                                value1 = rnd.Next(0, 2);
+                                value2 = rnd.Next(0, 2);
+                                secondWord += Convert.ToString(varmas[j, 0][value1]) + Convert.ToString(varmas[0, n][value2]);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < firstWord.Length-1; i+=2)
+                {
+                    for (int j = 1; j < 7; j++)
+                    {
+                        if (varmas[j, 0].Contains(firstWord[i])) value1 = j;
+                    }
+                    for (int j = 1; j < 7; j++)
+                    {
+                        if (varmas[0, j].Contains(firstWord[i+1])) value2 = j;
+                    }
+                    secondWord += varmas[value1, value2];
+
+                }
+                        }
+            textBox3.Text = secondWord;
+            secondWord = "";
+            newalphabet = "";
+            value1 = value2 = 0;//обнуляем
+        }
+
+
+        private void vijiner(bool flag)//ВИЖИНЕР
+        {
+            if (flag)
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }
