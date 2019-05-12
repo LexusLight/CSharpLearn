@@ -27,26 +27,28 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e) //вызываем шифровку
         {
+            if (textBox1.Text == "") return;
             Chifer(true);
              
         }
 
         private void button2_Click(object sender, EventArgs e) //вызываем дешифровку
         {
+            if (textBox1.Text == "") return;
             Chifer(false);
         }
 
 
         private void check(object sender, EventArgs e)
         {
-            if (radioButton1.Checked) { textBox1.Visible = false; scifernum = 1; } 
-            if (radioButton2.Checked) { textBox1.Visible = false; scifernum = 2; }
-            if (radioButton3.Checked) { textBox1.Visible = false; scifernum = 3; }
-            if (radioButton4.Checked) { textBox1.Visible = true; scifernum = 4; }
-            if (radioButton5.Checked) { textBox1.Visible = true; scifernum = 5; }
-            if (radioButton6.Checked) { textBox1.Visible = true; scifernum = 6; }
-            if (radioButton7.Checked) { textBox1.Visible = true; scifernum = 7; }
-            if (radioButton8.Checked) { textBox1.Visible = true; scifernum = 8; }
+            if (radioButton1.Checked) { textBox1.Visible = false; scifernum = 1; button2.Visible = true; } 
+            if (radioButton2.Checked) { textBox1.Visible = false; scifernum = 2; button2.Visible = true; }
+            if (radioButton3.Checked) { textBox1.Visible = false; scifernum = 3; button2.Visible = true; }
+            if (radioButton4.Checked) { textBox1.Visible = true; scifernum = 4; button2.Visible = true; }
+            if (radioButton5.Checked) { textBox1.Visible = true; scifernum = 5; button2.Visible = false; }
+            if (radioButton6.Checked) { textBox1.Visible = true; scifernum = 6; button2.Visible = true; }
+            if (radioButton7.Checked) { textBox1.Visible = true; scifernum = 7; button2.Visible = true; }
+            if (radioButton8.Checked) { textBox1.Visible = true; scifernum = 8; button2.Visible = true; }
         }
 
 
@@ -77,13 +79,14 @@ namespace WindowsFormsApp1
                     vijiner(flagShif);
                         break;
                     case 8:
+                    sovmesh(flagShif);
                         break;
             }
       
         }
 
 
-        private void czeesar(bool flag)//АТБАШ
+        private void czeesar(bool flag)//ЦЕЗАРЬ
         {
             for (int i = 3; i < alphabet.Length; i++) //присваиваем символы кроме первых трёх в начало строки
             {
@@ -184,6 +187,7 @@ namespace WindowsFormsApp1
         private void trisemus(bool flag)//ТАБЛИЦА ТРИСЕМУСА
         {
             int k = 0;
+
             string newkey = Convert.ToString(key[0]);
             for (int i=0; i < key.Length; i++) // Убираем лишние символы
             {
@@ -246,8 +250,9 @@ namespace WindowsFormsApp1
 
         private void playfair(bool flag)
         {
+            int[] coords = new int[4];
             int k=0;
-            int Xone, Yone, Xtwo, Ytwo;
+            string newfirstWord = "";
             string newkey = Convert.ToString(key[0]);
             for (int i = 0; i < key.Length; i++) // Убираем лишние символы
             {
@@ -269,16 +274,51 @@ namespace WindowsFormsApp1
                 }
             }
             k = 0;
-            firstWord += (firstWord.Length % 2 == 0) ? "" : "Я";
+            for (int i = 0; i < firstWord.Length-1; i = i + 2)
+            {
+                if (firstWord[i] == firstWord[i + 1])
+                {
+                    newfirstWord += firstWord[i].ToString() + "Я" + firstWord[i+1].ToString();
+                }
+                else if (firstWord[i] != firstWord[i + 1])
+                {
+                    newfirstWord += firstWord[i].ToString() + firstWord[i + 1].ToString();
+                }
+            }
+            newfirstWord += (firstWord.Length % 2 == 0) ? firstWord[firstWord.Length-1].ToString() : firstWord[firstWord.Length - 1].ToString()+"Я";
             if (flag)
             {
-                for (int i=0; i < firstWord.Length-1; i = i+2)
+                for (int i=0; i < newfirstWord.Length-1; i = i+2)
                 {
-                    for (int j=0; j < 5; j++)
+                    for (int j = 0; j < 6; j++)
                     {
-                        for (int n = 0; n < 5; n++)
+                        for (int n = 0; n < 6; n++)
                         {
+                            if (newfirstWord[i] == mass[j, n])
+                            {
+                                coords[0] = j; coords[1] = n;
+                            }
+                            if (newfirstWord[i + 1] == mass[j, n])
+                            {
+                                coords[2] = j; coords[3] = n;
+                            }
                         }
+                    }
+                    if (coords[0] == coords[2])
+                    {
+                        coords[1] = (coords[1] == 5) ? -1 : coords[1];
+                        coords[3] = (coords[3] == 5) ? -1 : coords[3];
+                        secondWord += mass[coords[0], coords[1]+1].ToString() + mass[coords[2], coords[3]+1].ToString();
+                    }
+                    if (coords[1] == coords[3])
+                    {
+                        coords[0] = (coords[0] == 5) ? -1 : coords[0];
+                        coords[2] = (coords[2] == 5) ? -1 : coords[2];
+                        secondWord += mass[coords[0]+1, coords[1]].ToString() + mass[coords[2]+1, coords[3]].ToString();
+                    }
+                    if ((coords[1] != coords[3])&& (coords[0] != coords[2]))
+                    {
+                        secondWord += mass[coords[0], coords[3]].ToString() + mass[coords[2], coords[1]].ToString();
                     }
                 }
             }
@@ -289,7 +329,7 @@ namespace WindowsFormsApp1
             textBox3.Text = secondWord;
             secondWord = "";
             newalphabet = ""; //обнуляем
-        }// НЕ сделано
+        }// ШИФР ПЛЕЙФЕЙР
 
 
         private void variantniy(bool flag)//ВАРИАНТНЫЙ ШИФР
@@ -374,26 +414,134 @@ namespace WindowsFormsApp1
         }
 
 
-        private void vijiner(bool flag)//ВИЖИНЕР
+        private void vijiner(bool flag)//ШИФР ВИЖИНЕРА
         {
+            string[] alphabetmas = new string[key.Length]; //Массив из строк
             string keyfirstWord = "";
             int count = 0;
-            for (int i =0; i < firstWord.Length; i++)
+            for (int i = 0; i < firstWord.Length; i++) //Закрываем обычное слово ключами
             {
-                keyfirstWord += key[count];
+                keyfirstWord += key
+[count];
                 count = (count < key.Length - 1) ? count + 1 : 0;
+            }
+            for (int i = 0; i < key.Length; i++)
+            {
+                for (int j = alphabet.IndexOf(key[i]); j < alphabet.Length; j++) //присваиваем буквы с  нужной в начало
+                {
+                    alphabetmas[i] += alphabet[j];
+                }
+                for (int j = 0; j < alphabet.IndexOf(key[i]); j++) //присваисваем предыдущие буквы в конец
+                {
+                    alphabetmas[i] += alphabet[j];
+                }
             }
             if (flag)
             {
-
+                for (int i = 0; i < firstWord.Length; i++)
+                {
+                    for (int j = 0; j < alphabetmas.Length; j++)
+                    {
+                        if (keyfirstWord[i] == alphabetmas[j][0])   //Если символ замещённого ключами слова == первому символу строки одного элемента массива, то в нём
+                        {
+                            secondWord += alphabetmas[j][alphabet.IndexOf(firstWord[i])]; //мы берём символ с равным индексом относительно нормального алфавита 
+                        }
+                    }
+                }
             }
             else
             {
-
+                for (int i = 0; i < firstWord.Length; i++)
+                {
+                    for (int j = 0; j < alphabetmas.Length; j++)
+                    {
+                        if (keyfirstWord[i] == alphabetmas[j][0])
+                        {
+                            for (int m = 0; m < alphabet.Length; m++)
+                            {
+                                if (firstWord[i] == alphabetmas[j][m])
+                                {
+                                    secondWord += alphabet[m];
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            textBox3.Text = keyfirstWord;
+            textBox3.Text = secondWord;
             secondWord = "";
             newalphabet = "";
+        }
+
+
+        private void sovmesh(bool flag)//СОВМЕЩЁННЫЙ ШИФР
+        {
+            string[,] sovmas = new string[5,10];
+            string newkey = Convert.ToString(key[0]);
+            int count = 0;
+
+            for (int i = 0; i < key.Length; i++) // Убираем лишние символы
+            {
+                if (newkey.Contains(key[i])) continue;
+                newkey += key[i];
+            }
+            if (newkey.Length > 10)
+            {
+                MessageBox.Show("Ключ длиннее 10");
+                return;
+            }
+            for (int i = 0; i < alphabet.Length; i++) // Убираем лишние символы в новом алфавите
+            {
+                if (newkey.Contains(alphabet[i])) continue;
+                newalphabet += alphabet[i];
+            }
+            for (int i = 0; i < newkey.Length; i++) // В первую строку заправляем ключ
+            {
+                sovmas[0,i] = newkey[i].ToString();
+            }
+            for (int i = 1; i < 4; i++) // В остальные строки заправляем новый алфавит
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (count >= newalphabet.Length)
+                    {
+                        sovmas[i, j] = "!";
+                        continue;
+                    } 
+                    sovmas[i, j] = newalphabet[count++].ToString();
+                }
+                
+            }
+            string[] masfirstWord = firstWord.Split(Convert.ToChar(" ")); // Для дешифровки разбиваем строку
+            if (flag)
+            {
+                for (int n = 0; n < firstWord.Length; n++)  // Если символы совпадают, мы просто прибавляем строку из индексов с пробелом
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        for (int j = 0; j < 10; j++)
+                        {
+                            if (firstWord[n].ToString() == sovmas[i, j])
+                            {
+                                string chisl = (j == 0) ? Convert.ToString(i * 10 + 0)+" " : Convert.ToString(i * 10 + 10 - j)+" ";
+                                secondWord += chisl;
+                            }
+                        }
+                    }
+                }
+                
+            }
+            else
+            {
+                for(int i = 0; i < masfirstWord.Length - 1; i++) // Я не буду это объяснять
+                {
+                    string chisl = (Convert.ToInt32(masfirstWord[i]) % 10 == 0) ? sovmas[Convert.ToInt32(masfirstWord[i]) / 10, 0]  : sovmas[Convert.ToInt32(masfirstWord[i])/10, 10 - Convert.ToInt32(masfirstWord[i])%10] ;
+                    secondWord += chisl;
+                }
+            }
+            textBox3.Text = secondWord;
+            secondWord = "";
+            newalphabet = ""; //обнуляем
         }
     }
 }
