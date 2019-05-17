@@ -55,6 +55,7 @@ namespace WindowsFormsApp1
         public static string Adbash(bool flag)//АТБАШ
         {
             secondWord = "";
+            newalphabet = "";
             for (int i = alphabet.Length - 1; i > -1; i--)
             { //Тупо переворачиваем строку можно реверсом, но я решил так
                 newalphabet += alphabet[i];
@@ -73,7 +74,6 @@ namespace WindowsFormsApp1
                     secondWord += alphabet[newalphabet.IndexOf(firstWord[i])];
                 }
             }
-            newalphabet = "";
             return (secondWord);
         }
 
@@ -186,6 +186,7 @@ namespace WindowsFormsApp1
 
         public static string Playfair(bool flag)// ШИФР ПЛЕЙФЕЙР
         {
+            secondWord = "";
             int[] coords = new int[4];
             int k = 0;
             string newfirstWord = "";
