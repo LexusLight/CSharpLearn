@@ -92,6 +92,9 @@ namespace WindowsFormsApp1
                     case 12:
                     textBox3.Text = Transpos.Vertical();
                         break;
+                    case 13:
+                    textBox3.Text = Transpos.Perekrestok();
+                        break;
             }
       
         }
