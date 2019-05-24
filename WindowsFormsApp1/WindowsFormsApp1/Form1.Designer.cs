@@ -51,6 +51,9 @@
             this.radioButton11 = new System.Windows.Forms.RadioButton();
             this.radioButton12 = new System.Windows.Forms.RadioButton();
             this.radioButton13 = new System.Windows.Forms.RadioButton();
+            this.radioButton14 = new System.Windows.Forms.RadioButton();
+            this.radioButton15 = new System.Windows.Forms.RadioButton();
+            this.radioButton16 = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // textBox1
@@ -291,7 +294,7 @@
             // radioButton13
             // 
             this.radioButton13.AutoSize = true;
-            this.radioButton13.Location = new System.Drawing.Point(624, 26);
+            this.radioButton13.Location = new System.Drawing.Point(672, 26);
             this.radioButton13.Name = "radioButton13";
             this.radioButton13.Size = new System.Drawing.Size(92, 17);
             this.radioButton13.TabIndex = 23;
@@ -300,11 +303,50 @@
             this.radioButton13.UseVisualStyleBackColor = true;
             this.radioButton13.CheckedChanged += new System.EventHandler(this.check);
             // 
+            // radioButton14
+            // 
+            this.radioButton14.AutoSize = true;
+            this.radioButton14.Location = new System.Drawing.Point(672, 49);
+            this.radioButton14.Name = "radioButton14";
+            this.radioButton14.Size = new System.Drawing.Size(132, 17);
+            this.radioButton14.TabIndex = 24;
+            this.radioButton14.TabStop = true;
+            this.radioButton14.Text = "Поворотная решётка";
+            this.radioButton14.UseVisualStyleBackColor = true;
+            this.radioButton14.CheckedChanged += new System.EventHandler(this.check);
+            // 
+            // radioButton15
+            // 
+            this.radioButton15.AutoSize = true;
+            this.radioButton15.Location = new System.Drawing.Point(672, 72);
+            this.radioButton15.Name = "radioButton15";
+            this.radioButton15.Size = new System.Drawing.Size(138, 17);
+            this.radioButton15.TabIndex = 25;
+            this.radioButton15.TabStop = true;
+            this.radioButton15.Text = "Магические квадраты";
+            this.radioButton15.UseVisualStyleBackColor = true;
+            this.radioButton15.CheckedChanged += new System.EventHandler(this.check);
+            // 
+            // radioButton16
+            // 
+            this.radioButton16.AutoSize = true;
+            this.radioButton16.Location = new System.Drawing.Point(672, 95);
+            this.radioButton16.Name = "radioButton16";
+            this.radioButton16.Size = new System.Drawing.Size(144, 17);
+            this.radioButton16.TabIndex = 26;
+            this.radioButton16.TabStop = true;
+            this.radioButton16.Text = "Двойная перестановка";
+            this.radioButton16.UseVisualStyleBackColor = true;
+            this.radioButton16.CheckedChanged += new System.EventHandler(this.check);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 298);
+            this.ClientSize = new System.Drawing.Size(824, 298);
+            this.Controls.Add(this.radioButton16);
+            this.Controls.Add(this.radioButton15);
+            this.Controls.Add(this.radioButton14);
             this.Controls.Add(this.radioButton13);
             this.Controls.Add(this.radioButton12);
             this.Controls.Add(this.radioButton11);
@@ -359,6 +401,9 @@
         public System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.TextBox textBox2;
         public System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.RadioButton radioButton14;
+        private System.Windows.Forms.RadioButton radioButton15;
+        private System.Windows.Forms.RadioButton radioButton16;
     }
 }
 

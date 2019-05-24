@@ -47,6 +47,9 @@ namespace WindowsFormsApp1
             if (radioButton11.Checked) { textBox1.Visible = false; scifernum = 11; button2.Visible = false; }
             if (radioButton12.Checked) { textBox1.Visible = true; scifernum = 12; button2.Visible = false; }
             if (radioButton13.Checked) { textBox1.Visible = false; scifernum = 13; button2.Visible = false; }
+            if (radioButton14.Checked) { textBox1.Visible = false; scifernum = 14; button2.Visible = false; }
+            if (radioButton15.Checked) { textBox1.Visible = false; scifernum = 15; button2.Visible = false; }
+            if (radioButton16.Checked) { textBox1.Visible = false; scifernum = 16; button2.Visible = false; }
 
         }
 
@@ -95,6 +98,15 @@ namespace WindowsFormsApp1
                     case 13:
                     textBox3.Text = Transpos.Perekrestok();
                         break;
+                    case 14:
+                    textBox3.Text = Transpos.Reshetka();
+                        break;
+                    case 15:
+                    textBox3.Text = Transpos.MagKv();
+                        break;
+                    case 16:
+                    textBox3.Text = Transpos.Dvoi();
+                    break;
             }
       
         }

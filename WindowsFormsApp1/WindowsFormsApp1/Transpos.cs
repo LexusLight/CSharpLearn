@@ -9,6 +9,7 @@ namespace WindowsFormsApp1
     class Transpos
     {
         private static string[,] stringmas1 = new string[,] { };
+        private static string[,] stringmas3 = new string[,] { };
         private static string[] stringmas2 = new string[] { };
         private static int symblenght = 0;
 
@@ -145,6 +146,98 @@ namespace WindowsFormsApp1
                 Change.secondWord += threemas[0, i].ToString() + threemas[0, i + 1].ToString();
                 Change.secondWord += threemas[1, i].ToString() + threemas[1, i + 1].ToString();
                 Change.secondWord += threemas[2, i].ToString() + threemas[2, i + 1].ToString();
+            }
+            return (Change.secondWord);
+        }
+        public static string Reshetka()//Переворотная решётка
+        {
+            Change.secondWord = "";
+            stringmas1 = new string[4, 4];
+            int count = 0;
+            for (int i = 0; i < 16; i++) Change.firstWord += (Change.firstWord.Length < 16) ? "_" : "";
+            stringmas1[0, 0] = Change.firstWord[count++].ToString();
+            stringmas1[0, 2] = Change.firstWord[count++].ToString();
+            stringmas1[2, 1] = Change.firstWord[count++].ToString();
+            stringmas1[2, 3] = Change.firstWord[count++].ToString();
+            stringmas1[0, 1] = Change.firstWord[count++].ToString();
+            stringmas1[0, 3] = Change.firstWord[count++].ToString();
+            stringmas1[2, 0] = Change.firstWord[count++].ToString();
+            stringmas1[2, 2] = Change.firstWord[count++].ToString();
+            stringmas1[1, 0] = Change.firstWord[count++].ToString();
+            stringmas1[1, 2] = Change.firstWord[count++].ToString();
+            stringmas1[3, 1] = Change.firstWord[count++].ToString();
+            stringmas1[3, 3] = Change.firstWord[count++].ToString();
+            stringmas1[1, 1] = Change.firstWord[count++].ToString();
+            stringmas1[1, 3] = Change.firstWord[count++].ToString();
+            stringmas1[3, 0] = Change.firstWord[count++].ToString();
+            stringmas1[3, 2] = Change.firstWord[count++].ToString();
+            for (int i = 0; i < stringmas1.GetLength(0); i++)
+            {
+                for (int j = 0; j < stringmas1.GetLength(0); j++)
+                {
+                    Change.secondWord += stringmas1[i, j];
+                }
+            }
+            return (Change.secondWord);
+        }
+        public static string MagKv()//Магические квадраты
+        {
+            Change.secondWord = "";
+            for (int i = 0; i < 16; i++) Change.firstWord += (Change.firstWord.Length < 16) ? "_": "";
+            int[,] mag = new int [4,4] { {16,3,2,13},{5,10,11,8},{9,6,7,12},{4,15,14,1}};
+            string[,] mag2 = new string[4, 4];
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    mag2[i,j] = Change.firstWord[mag[i, j]-1].ToString();
+                }
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Change.secondWord += mag2[i,j].ToString();
+                }
+            }
+            return (Change.secondWord);
+        }
+        public static string Dvoi()
+        {
+            Change.secondWord = "";
+            stringmas1 = new string[4, 4];
+            stringmas3 = new string[4, 4];
+            int[] col = new int[4] {4,1,3,2};
+            int[] row = new int[4] {3,1,4,2};
+            for (int i = 0; i < 16; i++) Change.firstWord += (Change.firstWord.Length < 16) ? "_" : "";
+            int count = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 3; j > -1; j--)
+                {
+                    stringmas1[i, j] = Change.firstWord[count++].ToString();
+                }
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0 ; j < 4; j++)
+                {
+                    stringmas3[i, col[j] - 1] = stringmas1[i,j];
+                }
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    stringmas1[row[i] - 1, j] = stringmas3[i,j];
+                }
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Change.secondWord += stringmas1[j,i];
+                }
             }
             return (Change.secondWord);
         }
